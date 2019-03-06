@@ -6,7 +6,7 @@ This document serves as a guide for Exchanges to list XEM and the designs listed
 
 ### Node Setup
 
-Guide to Node setup by [AnthonyLaw](https://github.com/AnthonyLaw/) 
+Guide to Node setup by [AnthonyLaw](https://github.com/AnthonyLaw/)  
 [Node Setup](https://gist.github.com/st-wong/88914d95f64ec854b098be3d5c51a53a)
 
 ### Central Wallet Design
