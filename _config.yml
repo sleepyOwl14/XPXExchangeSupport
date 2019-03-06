@@ -1,1 +1,5 @@
 theme: jekyll-theme-minimal
+title: NEM Exchange Support
+description: A guide to help exchanges list XEMs
+logo: images/nem_logo.png
+show_downloads: false
