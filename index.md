@@ -4,6 +4,11 @@ This document serves as a guide for Exchanges to list XEM and the designs listed
 
 **_Also, it is strongly encouraged that Exchanges do not enable harvesting and most of the Exchanges has agreed to this in the spirit of community_**
 
+### Node Setup
+
+Guide to Node setup by [AnthonyLaw](https://github.com/AnthonyLaw/) 
+[Node Setup](https://gist.github.com/st-wong/88914d95f64ec854b098be3d5c51a53a)
+
 ### Central Wallet Design
 
 - All deposits and withdrawals happen in a central wallet.
@@ -41,6 +46,5 @@ On listening to incoming deposits, it is also important to take note of the vari
 
 ### Example of Transactions
 
-Check out the list of transactions done by [crytoBeliever](https://github.com/cryptoBeliever/)
-
+Check out the list of transactions done by [crytoBeliever](https://github.com/cryptoBeliever/)  
 [Examples](example.md)
