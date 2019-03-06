@@ -40,4 +40,5 @@ On listening to incoming deposits, it is also important to take note of the vari
 ### Example of Transactions
 
 Check out the list of transactions done by [crytoBeliever](https://github.com/cryptoBeliever/)
+
 [Examples](example.md)
