@@ -2,6 +2,8 @@
 
 This document serves as a guide for Exchanges to list XEM and the designs listed are common among many exchanges but I would like to invite exchanges to contribute to this document should there be a better design.
 
+**__Also, it is strongly encouraged that Exchanges do not enable harvesting and most of the Exchanges has agreed to this in the spirit of community__**
+
 ### Central Wallet Design
 
 - All deposits and withdrawals happen in a central wallet.
