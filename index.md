@@ -1,37 +1,43 @@
-## Welcome to GitHub Pages
+## NEM Exchange Support
 
-You can use the [editor on GitHub](https://github.com/st-wong/NEMExchangeSupport/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+This document serves as a guide for Exchanges to list XEM and the designs listed are common among many exchanges but I would like to invite exchanges to contribute to this document should there be a better design.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Central Wallet Design
 
-### Markdown
+- All deposits and withdrawals happen in a central wallet.
+- Using the Message feature in NEM, users are identified by their UID on the Exchange’s own database. The UID is only shown to the user’s dashboard during the deposit confirmation.
+- Exchange should have the central wallet and it is recommended to have it set up with the Multisig feature in NEM. In addition, it is advised to have a cold wallet to hold a certain threshold for the pool of XEMs.
+- With the Multisig feature in NEM, withdrawals can be automated using bots communicating with different nodes to ensure proper security with user 2FA.
+- Drawback to this design is that many users are not accustomed to having a Message attached to their transactions which may cost the exchange lots of tickets in their support.
+- This design is shown below:
+  - Black lines represent the deposits
+  - Green lines represent the withdrawals
+  - Red lines represent co-signing bots
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+![Image of Central Wallet Design](images/centralwallet.png)
 
-```markdown
-Syntax highlighted code block
+### Multi-wallet Design
 
-# Header 1
-## Header 2
-### Header 3
+- All user accounts on the exchange have their own independent NEM address.
+- The NEM address private keys are managed by the exchange through their own security measures.
+- Deposits all happen directly with the NEM address of the user’s wallet, however the funds are transferred automatically to a central wallet which is used for withdrawals. This central wallet should follow the above design in ensuring proper security, i.e. using a cold wallet and the Multisig feature of NEM.
+- Drawback to this design is that exchange will need to ensure strong security to protect the private keys from being compromised.
+- This design is shown below:
+  - Black lines represent the deposits
+  - Green lines represent the withdrawals
+  - Red lines represent co-signing bots
 
-- Bulleted
-- List
+![Image of Multi-wallet Design](images/multiwallet.png)
 
-1. Numbered
-2. List
+### Deposits
 
-**Bold** and _Italic_ and `Code` text
+One of the unique features of NEM is that there are two different versions of a Transfer Transaction. In version 1, a Transfer Transaction transact XEMs via the Amount field but this changes in version 2, which then XEMs are transferred via Mosaics attached while the Amount field acts as a multiplier to the quantity in the Mosaics attached.
 
-[Link](url) and ![Image](src)
-```
+On listening to incoming deposits, it is also important to take note of the various transaction types to ensure proper update of the user’s dashboard, and it is advisable to always wait for about 9 - 10 blocks confirmation before crediting the values to the user’s dashboard. The flow to handle the various transaction and determining the exact amount of XEMs deposit is shown below. This flow also ensures that the exchange system will support any Mosaics built on NEM, which allows a user to send 1 transaction but deposit up to a maximum of 10 Mosaics. However, the actual listing of the Mosaics will depend very much on the exchange and the Mosaic owner.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+![Image of Deposit flowchart](images/deposit_flow.png)
 
-### Jekyll Themes
+### Example of Transactions
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/st-wong/NEMExchangeSupport/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Check out the list of transactions done by [crytoBeliever](https://github.com/cryptoBeliever/)
+[Examples](example.md)
