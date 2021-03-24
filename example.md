@@ -31,7 +31,7 @@ const sdk = require('tsjs-xpx-chain-sdk');
 let API_URL = "https://arcturus.xpxsirius.io";
 const accountHttp = new sdk.AccountHttp(API_URL);
 
-const address = sdk.Address.createFromRawAddress(<raw_address>);
+const address = sdk.Address.createFromRawAddress(RAW_ADDRESS);
 
 let pageSize = 10, // min 10, max 100
         lastId = '', // the transaction ID to start query from
@@ -80,7 +80,7 @@ let API_URL = "https://arcturus.xpxsirius.io";
 let network = sdk.NetworkType.MAIN_NET; 
 const accountHttp = new sdk.AccountHttp(API_URL);
 
-const publicAccount = sdk.PublicAccount.createFromPublicKey(<publicKey>, sdk.NetworkType.MAIN_NET);
+const publicAccount = sdk.PublicAccount.createFromPublicKey(PUBLIC_KEY, sdk.NetworkType.MAIN_NET);
 
 let pageSize = 10, // min 10, max 100
         lastId = '', // the transaction ID to start query from
@@ -119,8 +119,8 @@ let network = sdk.NetworkType.MAIN_NET;
 // eg. https://arcturus.xpxsirius.io/block/1
 const generationHash = '10540AD3A1BF46B1A05D8B1CF0252BC9FB2E0B53CFD748262B0CE341CEAFEB6B'; 
 
-const account = sdk.Account.createFromPrivateKey(<privateKey>, network);
-const recipientAddress = sdk.Address.createFromRawAddress(<raw_address>);
+const account = sdk.Account.createFromPrivateKey(PRIVATE_KEY, network);
+const recipientAddress = sdk.Address.createFromRawAddress(RAW_ADDRESS);
 
 const tx = sdk.TransferTransaction.create(
     sdk.Deadline.create(),
@@ -313,7 +313,7 @@ var API_URL = "https://arcturus.xpxsirius.io";
 const accountHttp = new sdk.AccountHttp(API_URL);
 const namespaceHttp = new sdk.NamespaceHttp(API_URL);
 
-const address = sdk.Address.createFromRawAddress(<raw_address>);
+const address = sdk.Address.createFromRawAddress(RAW_ADDRESS);
 
 const xpxNamespace = new sdk.NamespaceId('prx.xpx');
 let xpxAmount = 0;
@@ -354,9 +354,9 @@ let network = sdk.NetworkType.MAIN_NET;
 // https://arcturus.xpxsirius.io/block/1
 const generationHash = '10540AD3A1BF46B1A05D8B1CF0252BC9FB2E0B53CFD748262B0CE341CEAFEB6B'; 
 
-const accountToConvert = sdk.Account.createFromPrivateKey({privateKey}, network);
-const cosigner1 = sdk.PublicAccount.createFromPublicKey(<publicKey>, network);
-const cosigner2 = sdk.PublicAccount.createFromPublicKey(<publicKey>, network);
+const accountToConvert = sdk.Account.createFromPrivateKey(PRIVATE_KEY, network);
+const cosigner1 = sdk.PublicAccount.createFromPublicKey(PUBLIC_KEY_1, network);
+const cosigner2 = sdk.PublicAccount.createFromPublicKey(PUBLIC_KEY_2, network);
 
 const convertIntoMultisigTransaction = sdk.ModifyMultisigAccountTransaction.create(
     sdk.Deadline.create(),
@@ -574,7 +574,7 @@ const accountHttp = new sdk.AccountHttp(API_URL);
 // please use the correct network type for different blockchain network
 let network = sdk.NetworkType.MAIN_NET;  
 
-const account = sdk.Account.createFromPrivateKey(<privateKey>, network);
+const account = sdk.Account.createFromPrivateKey(PRIVATE_KEY, network);
 
 const cosignAggregateBondedTransaction = (signedAggregateBoundedTransaction, account) => {
     const cosignatureTransaction = sdk.CosignatureTransaction.create(signedAggregateBoundedTransaction);
@@ -607,9 +607,9 @@ With SDK:
 
 // basically the steps is the same as create multisig account, just some little changes
 
-const convertedMultisigAccount = sdk.PublicAccount.createFromPublicKey(<publicKey>, network);
+const convertedMultisigAccount = sdk.PublicAccount.createFromPublicKey(PUBLIC_KEY, network);
 
-const oneOfCosigner = sdk.Account.createFromPrivateKey(<privateKey>, network);
+const oneOfCosigner = sdk.Account.createFromPrivateKey(PRIVATE_KEY, network);
 
 const modifyMultisigTransaction = sdk.ModifyMultisigAccountTransaction.create(
     sdk.Deadline.create(),
