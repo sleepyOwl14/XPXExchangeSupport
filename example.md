@@ -1,3 +1,25 @@
+## Table of Contents
+- [About XPX](#about-xpx)
+- Transaction
+  - [Check incoming transaction](#check-incoming-transaction)
+  - [Check outgoing transaction](#check-outgoing-transaction)
+  - [Send transaction](#send-transaction)
+  - [Check transaction](#check-transaction)
+  - [Check transaction status](#check-transaction-status)
+- [Create new HD account](##create-a-new-hd-account-for-each-user-instead-of-using-message)
+- [Check balance](#check-balance)
+- Multisig
+  - [Create Multisig Account](#create-multisig-account)
+  - [Cosign Multisig Transaction](#cosign-multisig-transaction)
+  - [Modify Multisig Account](#modify-multisig-account)
+  - [Sending transaction with multisig account](#sending-transaction-with-multisig-account)
+  - [View Multisig](#view-multisig)
+  - [View Multisig Graph](#view-multisig-graph)
+- [API Endpoints](#api-endpoints)
+  - [List of Mainnet API](#list-of-mainnet-api)
+  - [List of Testnet API](#list-of-testnet-api)
+- [SDKs](#sdks)
+
 ## About XPX
 
 - The default network currency for Sirius Chain
@@ -705,7 +727,7 @@ Responses:
 
 &nbsp;
 
-## View Multisig
+## View Multisig Graph
 
 With REST API: 
 
@@ -718,11 +740,15 @@ With REST API:
 
 Can connect with https or http.
 
-https  - 
-example: https://arcturus.xpxsirius.io
+- https  - example: https://arcturus.xpxsirius.io
+- http  - example: http://arcturus.xpxsirius.io:3000
 
-http  - 
-example: http://arcturus.xpxsirius.io:3000
+It also have websocket connection.
+
+- wss - example: wss://arcturus.xpxsirius.io
+- ws - example: ws://arcturus.xpxsirius.io:3000
+
+**Please remember to close the websocket connection when it is no longer in use, it is to release resources for both the client and server
 
 ### List of Mainnet API
 
@@ -738,7 +764,7 @@ example: http://arcturus.xpxsirius.io:3000
 - bctestnet1.brimstone.xpxsirius.io
 - bctestnet2.brimstone.xpxsirius.io
 
-## References
+## SDKs
 
 [List of Sdks](https://bcdocs.xpxsirius.io/docs/sdks/languages/) 
 - Please go to selected SDK github repo wiki to have more understanding of the SDK of specific language
