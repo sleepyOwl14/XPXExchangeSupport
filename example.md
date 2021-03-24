@@ -36,7 +36,7 @@ const address = sdk.Address.createFromRawAddress(<raw_address>);
 let pageSize = 10, // min 10, max 100
         lastId = '', // the transaction ID to start query from
         order = sdk.Order.ASC;
-let qp = new sdk.QueryParams(pageSize, lastId, order)
+let qp = new sdk.QueryParams(pageSize, lastId, order);
 
 accountHttp.incomingTransactions(address, qp).subscribe((transactions)=>{
     
@@ -85,7 +85,7 @@ const publicAccount = sdk.PublicAccount.createFromPublicKey(<publicKey>, sdk.Net
 let pageSize = 10, // min 10, max 100
         lastId = '', // the transaction ID to start query from
         order = sdk.Order.ASC;
-let qp = new sdk.QueryParams(pageSize, lastId, order)
+let qp = new sdk.QueryParams(pageSize, lastId, order);
 
 accountHttp.outgoingTransactions(publicAccount, qp).subscribe((transactions)=>{
     
@@ -119,7 +119,7 @@ let network = sdk.NetworkType.MAIN_NET;
 // eg. https://arcturus.xpxsirius.io/block/1
 const generationHash = '10540AD3A1BF46B1A05D8B1CF0252BC9FB2E0B53CFD748262B0CE341CEAFEB6B'; 
 
-const account = sdk.Account.createFromPrivateKey(<privateKey>, network)
+const account = sdk.Account.createFromPrivateKey(<privateKey>, network);
 const recipientAddress = sdk.Address.createFromRawAddress(<raw_address>);
 
 const tx = sdk.TransferTransaction.create(
@@ -354,7 +354,7 @@ let network = sdk.NetworkType.MAIN_NET;
 // https://arcturus.xpxsirius.io/block/1
 const generationHash = '10540AD3A1BF46B1A05D8B1CF0252BC9FB2E0B53CFD748262B0CE341CEAFEB6B'; 
 
-const accountToConvert = sdk.Account.createFromPrivateKey(<privateKey>, network);
+const accountToConvert = sdk.Account.createFromPrivateKey('<privateKey>', network);
 const cosigner1 = sdk.PublicAccount.createFromPublicKey(<publicKey>, network);
 const cosigner2 = sdk.PublicAccount.createFromPublicKey(<publicKey>, network);
 
