@@ -191,31 +191,111 @@ With REST API:
 HD - 
 Hierarchical Deterministic
 
-You can use your own logic to create master and child account.
-Examples:
+You can use bip32 or bip44 structure to create master and child account.
 
-```
-eg 1:
-master
-master.child1
-master.child2
-master.child.grandchild1
-<string above> -> Crypto function -> 64 hex string as privateKey
+### bip32
+- derivation path format in "m/0'/1"
+- `m` for the current node as master, `'` is hardened derivation, while the rest is just index
+- no restriction, can create almost unlimited path, "m/0/0/1", "m/0/0/1/0",
+"m/0/0/1/0", "m/0/0/1/0/0/1" ...
 
-eg 2:
-<master privateKey> // auto generated
-<master privateKey>+'1'-> Crypto function -> 64 hex string as privateKey
-<master privateKey>+'2'-> Crypto function -> 64 hex string as privateKey
-```
+### bip44
+- derivation syntax same as bip32, just with arranged structure
+- format - m / purpose / coin type / account / change / address
+- purpose - we are using bip44, so will be value 44
+- coin type -  we are not in the Registered coin types, please temporary use index that is not in the list of https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+- account - independent user identities, start at 0 and sequentially increasing manner, same as bip32 indexing
+- change - it is bitcoin thing, so will keep at 0
+- address - derivation index, start at 0 and sequentially increasing manner, same as bip32 indexing
 
-** If your encryption implementation does not have random character, user input or highly allow guessable keywords, it is best to keep encryption implementation as secret.
+### About Sirius Chain Public Key
+- with bip32, derivation of private key and public key is generated 
+- only the private key is useful for Sirius Chain, as we are unable to convert the public key to our Sirius Chain public key, so it is useless to Sirius Chain.
+- Sirius Chain public key will need to create from the private key
 
+&nbsp;
 
-With SDK Example:
+Explained with coding:
+
 ```js
-// tsjs-xpx-chain-sdk
+// js example
 
-var sdk = require('tsjs-xpx-chain-sdk');
+const { randomBytes } = require("crypto");
+const sdk = require('tsjs-xpx-chain-sdk');
+const HDKey = require('hdkey');
+
+// we are not using the same curve as bitcoin and ethereum, 
+// so unable to convert from Public Key to Sirius Chain Public Key
+// will need to create it from Private Key 
+Object.defineProperty(HDKey.prototype, 'siriusPublicKey', {
+    get: function () {
+      return this._privateKey ? sdk.Account.createFromPrivateKey(this._privateKey.toString('hex'), sdk.NetworkType.MAIN_NET).publicKey : null;
+    }
+  })
+
+// please save your seed during production
+// with toString('hex') to hexadecimal format
+const seed = randomBytes(66);
+
+var master = HDKey.fromMasterSeed(seed);
+
+// get private key
+// => master.privateKey.toString('hex')
+
+// get public key
+// => master.publicKey.toString('hex')
+
+// get Sirius Chain Public Key
+// => master.siriusPublicKey
+
+// get private Extended Key
+// => master.privateExtendedKey
+// will output something like below:
+// => xprv9s21ZrQH143K2uMKQL1CoW6yjUKmyRx8TNHMPrPsEweE24QgcNCUa1hG3M3waEbMcB5JC16ck5jJZbamY6fuoV71YmbygM8SzTSAvzRSJXK
+
+// get public Extended Key
+// => master.publicExtendedKey
+// will output something like below:
+// => xpub661MyMwAqRbcFPRnWMYDAe3iHWAGNtfypbCxCEoUoHBCtrjq9uWj7p1jtd8SdLHdDYW3YiNGjmaUasFZ8sF8RbN8Kmi9LBdJAFAMjXrabVb
+
+// derivation: m - current derive , ' - hardened derive 
+// Using bip32 derive
+var child1 = master.derive("m/0'");
+var child2 = master.derive("m/1'");
+var child3 = master.derive("m/0'/1");
+
+var child1_child = child1.derive('m/1');
+
+// derivation child1_child and child3 are the same, as their final path is the same
+console.log("child1_child private key : ", child1_child.privateKey.toString('hex'));
+console.log("child3 private key       : ", child3.privateKey.toString('hex'));
+
+// create node from extended Key
+// from the code below, child3 and child3_duplicate is the same
+var child3_duplicate = HDKey.fromExtendedKey(child3.privateExtendedKey);
+
+// when create a node from publicExtendedKey or the node get neutered (private key removed)
+// all the rest of the derivation from the point of neuter will only have public key
+// we will be ignoring this, public key here is unless for Sirius Chain as we can't convert public key to our public key
+// private key will be null
+var child3_duplicate_neutered = HDKey.fromExtendedKey(child3.publicExtendedKey);
+
+
+
+// bip44
+// If following bip44 method, we will have
+// format - m / purpose / coin type / account / change / address
+// ' - hardened derive
+// purpose - we use bip44 rule, so will be 44
+// coin type -  we are not in the Registered coin types, please use index that is not in list of https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+// account - independent user identities, start at 0 and sequentially increasing manner, same as bip32
+// change - it is bitcoin thing, so will keep at 0
+// address - derivation index, start at 0 and sequentially increasing manner, same as bip32
+var coinHardenedNode = master.derive("m/44'/20000000'/0'/0");
+
+var coinHardenedAddress1 = coinHardenedNode.derive("m/0"); // or master.derive("m/44'/20000000'/0'/0/0");
+var coinHardenedAddress2 = coinHardenedNode.derive("m/1"); // or master.derive("m/44'/20000000'/0'/0/1");
+
 ```
 
 &nbsp;
