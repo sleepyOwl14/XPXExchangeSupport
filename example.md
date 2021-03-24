@@ -195,16 +195,16 @@ You can use bip32 or bip44 structure to create master and child account.
 
 ### bip32
 - derivation path format in "m/0'/1"
-- `m` for the current node as master, `'` is hardened derivation, while the rest is just index
-- no restriction, can create almost unlimited path, "m/0/0/1", "m/0/0/1/0",
-"m/0/0/1/0", "m/0/0/1/0/0/1" ...
+- `m` for the current node as master, `'` indicate it is hardened derivation, while the rest is just index
+- no restriction, can create almost unlimited path, `"m/0/0/1"`, `"m/0/0/1/0"`,
+`"m/0/0/1/0"`, `"m/0/0/1/0/0/1"` ...
 
 ### bip44
 - derivation syntax same as bip32, just with arranged structure
 - format - m / purpose / coin type / account / change / address
-- purpose - we are using bip44, so will be value 44
-- coin type -  we are not in the Registered coin types, please temporary use index that is not in the list of https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-- account - independent user identities, start at 0 and sequentially increasing manner, same as bip32 indexing
+- purpose - we are using bip44, so will be value 44, hardened derivation
+- coin type -  we are not in the Registered coin types, please temporary use index that is not in the list of https://github.com/satoshilabs/slips/blob/master/slip-0044.md, hardened derivation
+- account - independent user identities, start at 0 and sequentially increasing manner, same as bip32 indexing,  hardened derivation
 - change - it is bitcoin thing, so will keep at 0
 - address - derivation index, start at 0 and sequentially increasing manner, same as bip32 indexing
 
@@ -278,7 +278,7 @@ var child3_duplicate = HDKey.fromExtendedKey(child3.privateExtendedKey);
 // all the rest of the derivation from the point of neuter will only have public key
 // we will be ignoring this, public key here is unless for Sirius Chain as we can't convert public key to our public key
 // private key will be null
-var child3_duplicate_neutered = HDKey.fromExtendedKey(child3.publicExtendedKey);
+var child3_duplicate_neutered = HDKey.fromExtendedKey(child3.publicExtendedKey); // same as child3.wipePrivateData()
 
 
 
@@ -286,9 +286,9 @@ var child3_duplicate_neutered = HDKey.fromExtendedKey(child3.publicExtendedKey);
 // If following bip44 method, we will have
 // format - m / purpose / coin type / account / change / address
 // ' - hardened derive
-// purpose - we use bip44 rule, so will be 44
-// coin type -  we are not in the Registered coin types, please use index that is not in list of https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-// account - independent user identities, start at 0 and sequentially increasing manner, same as bip32
+// purpose - Hardened derivation, we use bip44 rule, so will be 44
+// coin type - Hardened derivation, we are not in the Registered coin types, please use index that is not in list of https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+// account - Hardened derivation, independent user identities, start at 0 and sequentially increasing manner, same as bip32, hardened
 // change - it is bitcoin thing, so will keep at 0
 // address - derivation index, start at 0 and sequentially increasing manner, same as bip32
 var coinHardenedNode = master.derive("m/44'/20000000'/0'/0");
