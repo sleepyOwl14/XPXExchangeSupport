@@ -354,7 +354,7 @@ let network = sdk.NetworkType.MAIN_NET;
 // https://arcturus.xpxsirius.io/block/1
 const generationHash = '10540AD3A1BF46B1A05D8B1CF0252BC9FB2E0B53CFD748262B0CE341CEAFEB6B'; 
 
-const accountToConvert = sdk.Account.createFromPrivateKey('<privateKey>', network);
+const accountToConvert = sdk.Account.createFromPrivateKey({privateKey}, network);
 const cosigner1 = sdk.PublicAccount.createFromPublicKey(<publicKey>, network);
 const cosigner2 = sdk.PublicAccount.createFromPublicKey(<publicKey>, network);
 
